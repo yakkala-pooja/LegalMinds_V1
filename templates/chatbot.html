@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Chatbot</title>
+    <script>
+        async function sendMessage() {
+            const userQuery = document.getElementById("userQuery").value;
+            const responseBox = document.getElementById("responseBox");
+
+            const response = await fetch('/chatbot-response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query: userQuery }),
+            });
+
+            const data = await response.json();
+            responseBox.innerText = data.response;
+        }
+    </script>
+</head>
+<body>
+    <h1>Legal Chatbot</h1>
+    <textarea id="userQuery" rows="4" cols="50" placeholder="Ask a legal question..."></textarea><br>
+    <button onclick="sendMessage()">Send</button>
+    <p><strong>Response:</strong></p>
+    <p id="responseBox"></p>
+</body>
+</html>

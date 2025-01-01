@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Analysis</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    h1 {
+        color: #333;
+        font-size: 68px; /* Make the heading bigger */
+    }
+
+    .button-container {
+        margin-top: 50px; /* Adjusted margin for better spacing */
+        display: flex;
+        justify-content: center;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 20px 40px; /* Increased padding to make buttons bigger */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px; /* Increased font size */
+        cursor: pointer;
+        border: none;
+        border-radius: 30px; /* Increased border radius for rounded corners */
+        margin-right: 20px; /* Adjusted margin between buttons */
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+
+    .search-container {
+        margin-top: 100px; /* Adjust margin as needed */
+        margin-bottom: 100px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .search-container form {
+        width: 100%;
+        max-width: 900px; /* Set a maximum width if needed */
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .search-container input[type=text] {
+        width: 100%; /* Adjust width of the input field as needed */
+        padding: 15px 20px; /* Adjust padding as needed */
+        border: 1px solid #ccc;
+        border-radius: 30px; /* Adjust border-radius to make it round */
+        outline: none; /* Remove default focus outline */
+        font-size: 32px; /* Adjust font size as needed */
+        margin-right: 20px;
+    }
+
+    .search-container input[type=text]:focus {
+        border-color: #4CAF50; /* Change border color on focus */
+    }
+
+    .search-container input[type=text]::placeholder {
+        color: #aaa; /* Adjust placeholder color */
+    }
+    .upload-container {
+        margin-top: 50px; /* Adjust margin as needed */
+        display: flex;
+        justify-content: center;
+        align-items: center; /* Center items vertically */
+    }
+
+    .upload-container form {
+        width: 100%; /* Set the width to cover 2/4 of the screen */
+        max-width: 900px; /* Set a maximum width if needed */
+        display: flex;
+        justify-content: space-between; /* Add space between input and button */
+        align-items: center; /* Center items vertically */
+    }
+
+    .upload-container input[type=file] {
+        color: #000000;
+        display: none; /* Hide the default file input */
+    }
+
+    .upload-container .file-input-label {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 30px; /* Adjust border-radius to make it round */
+        padding: 15px 30px; /* Adjust padding as needed */
+        cursor: pointer;
+        margin-right: 30px;
+        font-size: 28px; /* Adjust font size as needed */
+    }
+
+    .upload-container .file-input-label:hover {
+        background-color: #45a049;
+    }
+
+    .upload-container .file-name {
+        flex-grow: 1; /* Take remaining space */
+        padding: 12px;
+        margin-right: 15px; /* Add margin between input and button */
+        border-radius: 30px;
+        color: #000000;
+        font-size: 28px;
+    }
+
+    .upload-container .upload-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 30px; /* Adjust border-radius to make it round */
+        padding: 15px 30px; /* Adjust padding as needed */
+        cursor: pointer;
+        font-size: 28px; /* Adjust font size as needed */
+    }
+
+    .upload-container .upload-button:hover {
+        background-color: #45a049;
+    }
+    .file-list {
+        margin-top: 20px; /* Adjust margin as needed */
+        justify-content: center;
+        width: 100%;
+    }
+
+    .file-list ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .file-list li {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding: 20px;
+        border-radius: 5px;
+        font-size: 28px;
+        display: flex; /* Make list items flex containers */
+        justify-content: space-between; /* Distribute space between items */
+    }
+
+    .file-list li:hover {
+        background-color: #f0f0f0;
+    }
+    .file-list span{
+        flex: 1; /* Allow the file name to grow and shrink as needed */
+    }
+    .dropbtn {
+        background-color: #4CAF50; /* Set background color to green */
+        color: white;
+        font-size: 24px; /* Increase font size for bigger plus */
+        border: none;
+        cursor: pointer;
+        width: 40px; /* Set width and height for a square button */
+        height: 40px;
+        border-radius: 30%; /* Make the button round */
+        display: flex; /* Center icon vertically and horizontally */
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dropbtn:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+    .file-action-btn {
+        background-color: #4CAF50; /* Green background color */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px 0; /* Add margin between buttons */
+        width: 100%; /* Make buttons full width */
+        font-size: 22px;
+    }
+
+    .file-action-btn:hover {
+        background-color: #45a049; /* Darker green color on hover */
+    }
+    .dropdown {
+        position: relative; /* Set relative positioning for dropdown container */
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        min-width: 140px; /* Set a minimum width for the dropdown */
+        right: 0; /* Align dropdown to the right of its container */
+    }
+
+    .dropdown-content button {
+        width: auto; /* Reset width to auto for buttons inside dropdown */
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Document Analysis</h1>
+        <div class="search-container">
+            <form action="/document_analysis" method="get">
+                <input type="text" name="search" id="search" placeholder="Search document" value="{{ search_query }}">
+                <button class="button" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="file-list">
+            {% if files %}
+                <h2>Search Results:</h2>
+                <ul>
+                    {% for file in files %}
+                        <li>
+                            <span>{{ file }}</span>
+                            <div class="dropdown">
+                                <button class="dropbtn">+</button>
+                                <div class="dropdown-content">
+                                    <button class="file-action-btn" onclick="openFile('{{ file }}')">Open the File</button>
+                                    <button class="file-action-btn" onclick="openSummary('{{ file }}')">Summary of the File</button>
+                                    <button class="file-action-btn" onclick="openInfo('{{ file }}')">Informatics of the File</button>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="upload-container">
+            <form action="/document_analysis" method="post" enctype="multipart/form-data">
+                <label for="file" class="file-input-label">Choose File</label>
+                <input type="file" name="file" id="file">
+                <input type="text" class="file-name" readonly> <!-- Read-only input field for file name -->
+                <button class="upload-button" type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById("file").addEventListener("change", function() {
+            const fileName = this.value.split("\\").pop();
+            document.querySelector(".file-name").value = fileName;
+        });
+        document.querySelectorAll('.dropbtn').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                var dropdownContent = event.target.nextElementSibling;
+                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+
+        document.querySelectorAll('.dropdown-content').forEach(function(content) {
+            content.style.display = 'none'; // Hide dropdown content initially
+        });
+
+        function openFile(filename) {
+            window.open('/open_file/' + filename, '_blank');
+        }
+        function openSummary(filename) {
+            window.open('/summary/' + filename, '_blank');
+        }
+        function openInfo(filename) {
+            window.open('/informatics/' + filename, '_blank');
+        }
+    </script>
+</body>
+</html>

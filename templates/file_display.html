@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 48px; /* Make the heading bigger */
+            text-align: center;
+        }
+        .pdf-container {
+            width: 100%;
+            height: 600px; /* Adjust height as needed */
+        }
+        pre {
+            white-space: pre-wrap;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <body>
+    <h1>{{ filename }}</h1>
+    <div class="container">
+        {% if filename.endswith('.txt') %}
+            <pre>{{ file_contents }}</pre>
+        {% elif filename.endswith('.pdf') %}
+            <div class="pdf-container">
+                 <iframe src="{{ url_for('static', filename='E:/Copies/' + filename) }}" width="100%" height="100%" frameborder="0" scrolling="auto"></iframe>
+            </div>
+        {% else %}
+            <p>This file format is not supported for display.</p>
+        {% endif %}
+    </div>
+</body>
+</body>
+</html>
